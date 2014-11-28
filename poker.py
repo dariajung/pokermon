@@ -21,7 +21,7 @@ def translate_hand(hand):
     mapping = translate_name_to_value()
     parsed_hand = map(parse_card, hand)
     valued_hand = map(lambda (v, s): return_card_to_int_tuple(v, s, mapping), parsed_hand)
-    return valued_hand
+    return sorted(valued_hand, reverse=True)
 
 
 def return_card_to_int_tuple(value, suit, mapping):
@@ -34,7 +34,18 @@ def return_card_to_int_tuple(value, suit, mapping):
 
 
 def check_royal_flush(hand):
-    pass
+    royal_flush = False
+    first_suit = hand[0][1]
+    same_suit = reduce((lambda acc, (val, suit): acc and (first_suit == suit)), hand, True)
+    if same_suit:
+        # since ordered in descending order
+        f = map(lambda (val, suit): val, hand)
+        if f == [14, 13, 12, 11, 10]:
+            royal_flush = True
+    else:
+        royal_flush = False
+
+    return royal_flush
 
 
 # ie: King --> 13
