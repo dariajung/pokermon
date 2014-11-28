@@ -17,6 +17,12 @@
 # result = your_method(cards)
 # assert result == RoyalFlush
 
+def translate_hand(hand):
+    mapping = translate_name_to_value()
+    parsed_hand = map(parse_card, hand)
+    valued_hand = map(lambda (v, s): return_card_to_int_tuple(v, s, mapping), parsed_hand)
+    return valued_hand
+
 
 def return_card_to_int_tuple(value, suit, mapping):
     if value in mapping:
@@ -31,15 +37,15 @@ def check_royal_flush(hand):
     pass
 
 
-# ie: King --> 12
+# ie: King --> 13
 # anything lower than A K Q J can be translated to an Int value
 # using int(str)
 def translate_name_to_value():
     mapping = {
-        "Ace": 13,
-        "King": 12,
-        "Queen": 11,
-        "Jack": 10
+        "Ace": 14,
+        "King": 13,
+        "Queen": 12,
+        "Jack": 11
     }
 
     return mapping
